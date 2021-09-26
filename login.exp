@@ -1,0 +1,12 @@
+#!/usr/bin/expect -f 
+set ip [lindex $argv 0 ] 
+set command [lindex $argv 1]
+set timeout 60
+spawn ssh root@$ip
+expect {
+    "*#*" { send "$command\r" }
+}
+expect {
+    "*rm:*" { send "exit\r" }
+    eof
+}
